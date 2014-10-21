@@ -1,1 +1,4 @@
 .idea/
+app/users/__pycache__/
+__pycache__/
+app.db
