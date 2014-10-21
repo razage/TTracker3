@@ -1,12 +1,23 @@
 {% extends "base.html" %}
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}"
+{% endblock %}
 {% block content %}
-    <form method="post" action=".">
-        {{form.csrf_token}}
-        <p>{{form.email.label}}: {{form.email}}</p>
-        <p>{{form.firstname.label}}: {{form.firstname}}</p>
-        <p>{{form.lastname.label}}: {{form.lastname}}</p>
-        <p>{{form.password.label}}: {{form.password}}</p>
-        <p>{{form.confirm.label}}: {{form.confirm}}</p>
-        <p><input type="submit" value="Register"></p>
-    </form>
+    <div class="container">
+        <form class="form-register" role="form" method="post" action=".">
+            <h2 class="form-register-heading">Welcome to TicketTracker3</h2>
+            {{ form.csrf_token }}
+            {{ form.email.label }}
+            {{ form.email(class="form-control") }}
+            {{ form.firstname.label }}
+            {{ form.firstname(class="form-control") }}
+            {{ form.lastname.label }}
+            {{ form.lastname(class="form-control") }}
+            {{ form.password.label }}
+            {{ form.password(class="form-control") }}
+            {{ form.confirm.label }}
+            {{ form.confirm(class="form-control") }}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+        </form>
+    </div>
 {% endblock %}
