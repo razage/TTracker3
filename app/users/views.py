@@ -7,10 +7,10 @@ from .models import Technicians
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash
 
-users = Blueprint('users', __name__, url_prefix="/users")
+mod = Blueprint('users', __name__, url_prefix="/users")
 
 
-@users.route('/login/', methods=['GET', 'POST'])
+@mod.route('/login/', methods=['GET', 'POST'])
 def login():
     form = LoginForm(request.form)
     if form.validate_on_submit():
@@ -25,7 +25,7 @@ def login():
     return render_template("users/login.html", form=form, title="Login", page="login")
 
 
-@users.route('/logout/')
+@mod.route('/logout/')
 @login_required
 def logout():
     session.pop('techid', None)
@@ -35,7 +35,7 @@ def logout():
     return redirect(url_for("home"))
 
 
-@users.route('/register/', methods=['GET', 'POST'])
+@mod.route('/register/', methods=['GET', 'POST'])
 def register():
     form = RegisterForm(request.form)
     if form.validate_on_submit():

@@ -10,6 +10,8 @@ db = SQLAlchemy(app)
 def home():
     return render_template("home.html", title="TicketTracker3", page="home")
 
-from app.users.views import users
+from app.tickets.views import mod as ticketmod
+from app.users.views import mod as usermod
 
-app.register_blueprint(users)
+app.register_blueprint(ticketmod)
+app.register_blueprint(usermod)
