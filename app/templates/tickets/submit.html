@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block statuses %}
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            {% for category, msg in get_flashed_messages(with_categories=true) %}
+                <li>{{ msg }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <form class="form-submit" role="form" method="post" action=".">
+            <h2 class="form-submit-heading">Submit a Ticket</h2>
+            {{ form.csrf_token }}
+            {{ form.received.label }}
+            {{ form.received(class="form-control", placeholder="format: yyyy-mm-dd") }}
+            {{ form.returned.label }}
+            {{ form.returned(class="form-control", placeholder="format: yyyy-mm-dd") }}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit Ticket</button>
+        </form>
+    </div>
+{% endblock %}

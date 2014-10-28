@@ -12,8 +12,8 @@ class Os(db.Model):
 class Tickets(db.Model):
     __tablename__ = "repairs"
     tid = db.Column(db.Integer(), primary_key=True)
-    received = db.Column(db.DateTime(), nullable=False)
-    returned = db.Column(db.DateTime(), default=None)
+    received = db.Column(db.Date(), nullable=False)
+    returned = db.Column(db.Date(), default=None)
     technician = db.Column(db.String(30), default=None)
     technician2 = db.Column(db.String(30), default=None)
     os = db.Column(db.String(30), default=None)
