@@ -45,16 +45,17 @@
             </div>
         </div>
     </div>
-    {% block statuses %}
-        {% for category, msg in get_flashed_messages(with_categories=true) %}
-            <div class="alert alert-{{ category }}" role="alert">{{ msg }}</div>
-        {% endfor %}
-    {% endblock %}
     <div class="container theme-showcase" role="main">
-        <div class="jumbotron">
-            {% block content %}
-            {% endblock %}
-        </div>
+        {% block statuses %}
+            {% for category, msg in get_flashed_messages(with_categories=true) %}
+                <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    {{ msg }}
+                </div>
+            {% endfor %}
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>

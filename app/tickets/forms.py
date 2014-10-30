@@ -1,7 +1,6 @@
 from flask_wtf import Form
 from wtforms import BooleanField, DateField, SelectField, StringField, TextAreaField
 from wtforms.validators import DataRequired
-from .models import Os
 
 
 class TicketSubmitForm(Form):

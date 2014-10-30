@@ -10,6 +10,7 @@ db.session.commit()
 db.session.add(Technicians("admin@ttracker3.com", "Test", "User", "password", True, True))
 db.session.commit()
 
+
 #Predefined Operating Systems
 db.session.add(Os("Debian"))
 db.session.add(Os("Fedora"))
@@ -32,5 +33,6 @@ db.session.add(Os("Windows 8"))
 db.session.add(Os("Windows 10"))
 db.session.add(Os("Windows Vista"))
 db.session.add(Os("Windows XP"))
+db.session.commit()
 
 

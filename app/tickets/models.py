@@ -3,10 +3,13 @@ from app import db
 
 class Os(db.Model):
     __tablename__ = "opsys"
-    osname = db.Column(db.String(30), primary_key=True)
+    oid = db.Column(db.Integer, primary_key=True)
+    osname = db.Column(db.String(30))
+    enabled = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self, osname):
+    def __init__(self, osname, enabled=True):
         self.osname = osname
+        self.enabled = enabled
 
 
 class Tickets(db.Model):

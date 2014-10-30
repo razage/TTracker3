@@ -23,6 +23,7 @@ body {
   padding: 10px;
   font-size: 16px;
 }
+
 .form-register .form-control:focus {
   z-index: 2;
 }
@@ -37,4 +38,13 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.table>thead:first-child>tr:first-child>th {
+    border-top: 1px solid #B8B8B8;
+}
+
+.table-bordered>thead>tr>th{
+    background: #DEDEDE;
+    border: 1px solid #B8B8B8;
 }
