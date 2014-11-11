@@ -31,4 +31,4 @@ def submitticket():
         for field, errors in form.errors.items():
             for error in errors:
                 flash("%s: %s" % (getattr(form, field).label.text, error), ALERT_CATEGORIES['ERROR'])
-    return render_template("tickets/submit.html", form=form, title="Submit a Ticket", page="submit")
+    return render_template("tickets/submit.html", form=form, title="Submit a Ticket", page="tickets")

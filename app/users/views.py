@@ -39,12 +39,13 @@ def logout():
 def register():
     form = RegisterForm(request.form)
     if form.validate_on_submit():
-        technician = Technicians(form.email.data.lower, form.firstname.data, form.lastname.data, form.password.data)
+        technician = Technicians(form.email.data.lower(), form.firstname.data, form.lastname.data, form.password.data)
         try:
             db.session.add(technician)
+            db.session.commit()
         except IntegrityError:
             flash("This email is already in use.", ALERT_CATEGORIES['ERROR'])
-        db.session.commit()
+            return redirect(url_for("users.register"))
         flash("Welcome to the team " + form.firstname.data + ' ' + form.lastname.data, ALERT_CATEGORIES['SUCCESS'])
         return redirect(url_for("home"))
     return render_template("users/register.html", form=form, title="Register", page="register")
