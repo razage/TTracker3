@@ -2,7 +2,7 @@ from app import db
 from app.constants import ALERT_CATEGORIES
 from app.users.decorators import login_required
 from .forms import TicketSubmitForm
-from .models import Os
+from .models import Os, Tickets
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for
 
 mod = Blueprint('tickets', __name__, url_prefix="/tickets")
@@ -11,7 +11,8 @@ mod = Blueprint('tickets', __name__, url_prefix="/tickets")
 @mod.route('/')
 @login_required
 def ticketindex():
-    pass
+    tickets = db.session.query(Tickets).all()
+    return render_template("tickets/ticketlist.html", title="Browse Tickets", tickets=tickets)
 
 
 @mod.route('/search/', methods=["GET", "POST"])
@@ -26,7 +27,16 @@ def submitticket():
     form = TicketSubmitForm(request.form)
     form.os.choices = [(o.oid, o.osname) for o in db.session.query(Os).order_by(Os.osname).all()]
     if form.validate_on_submit():
-        pass
+        data = [form.received.data, form.returned.data, (None if form.status.data is 0 else session['technician_name']),
+                form.status.data, form.os.data, form.cname.data, form.cphone.data, form.cemail.data, form.problem.data,
+                form.workdone.data]
+        for i in range(len(data)):
+            if data[i] is '':
+                data[i] = None
+        db.session.add(Tickets(*data))
+        db.session.commit()
+        flash("Your ticket has been added to the database!", ALERT_CATEGORIES['SUCCESS'])
+        return redirect(url_for("home"))
     else:
         for field, errors in form.errors.items():
             for error in errors:

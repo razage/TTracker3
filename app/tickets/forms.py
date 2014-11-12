@@ -1,18 +1,19 @@
+from app.constants import STATUSES
 from flask_wtf import Form
-from wtforms import BooleanField, DateField, SelectField, StringField, TextAreaField
+from wtforms import DateField, SelectField, StringField, TextAreaField
 from wtforms.validators import DataRequired, Optional
 
 
 class TicketSubmitForm(Form):
-    received = DateField('Received', [DataRequired()])
+    received = DateField('Received', [DataRequired()], format="%Y-%m-%d")
     returned = DateField('Returned', [Optional()])
 
     os = SelectField('Operating System', coerce=int)
-    status = SelectField('Ticket Status', choices=[(0, "Unclaimed"), (1, "Repairing"), (2, "Awaiting Customer Pickup"), (3, "Complete")], coerce=int)
+    status = SelectField('Ticket Status', choices=[(idx, val) for idx, val in enumerate(STATUSES)], coerce=int)
 
-    cname = StringField('Customer Name')
-    cphone = StringField('Customer Phone Number')
-    cemail = StringField('Customer Email Address')
+    cname = StringField('Customer Name', [Optional()])
+    cphone = StringField('Customer Phone Number', [Optional()])
+    cemail = StringField('Customer Email Address', [Optional()])
 
-    problem = TextAreaField("Problem")
-    workdone = TextAreaField("Work Done")
+    problem = TextAreaField("Problem", [Optional()])
+    workdone = TextAreaField("Work Done", [Optional()])

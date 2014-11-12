@@ -14,3 +14,19 @@ body {
 .alert {
     margin-top: 20px;
 }
+
+.row-Unclaimed {
+    background: #FC818D;
+}
+
+.row-Repairing {
+    background: #F6FC81;
+}
+
+.row-Waiting {
+    background: #FCD781;
+}
+
+.row-Complete {
+    background: #81FC83;
+}

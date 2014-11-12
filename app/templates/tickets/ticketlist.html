@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Ticket ID</th>
+            <th>Date Received</th>
+            <th>Status</th>
+            <th>Technician</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for t in tickets %}
+            <tr class="row-{{ t.status|statusname }}">
+                <td>{{ t.tid }}</td>
+                <td>{{ t.received.strftime("%B %d, %Y") }}</td>
+                <td>{{ t.status|statusname }}</td>
+                {% if t.technician == None %}
+                    <td>N/a</td>
+                {% else %}
+                    <td>{{ t.technician }}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

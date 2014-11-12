@@ -17,7 +17,7 @@ def login():
         technician = Technicians.query.filter_by(email=form.email.data).first()
         if technician and check_password_hash(technician.password, form.password.data):
             session['techid'] = technician.email
-            session['technician_name'] = technician.f_name + ' ' + technician.l_name
+            session['technician_name'] = technician.full_name
             session['admin'] = technician.admin
             flash("Welcome " + session['technician_name'], ALERT_CATEGORIES['SUCCESS'])
             return redirect(url_for("home"))

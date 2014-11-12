@@ -17,8 +17,8 @@ class Tickets(db.Model):
     tid = db.Column(db.Integer(), primary_key=True)
     received = db.Column(db.Date(), nullable=False)
     returned = db.Column(db.Date(), default=None)
-    technician = db.Column(db.String(30), default=None)
-    technician2 = db.Column(db.String(30), default=None)
+    technician = db.Column(db.String(30), db.ForeignKey("technicians.full_name"))
+    status = db.Column(db.Integer(), nullable=False)
     os = db.Column(db.String(30), default=None)
     cname = db.Column(db.String(30), default=None)
     cphone = db.Column(db.String(30), default=None)
@@ -26,11 +26,11 @@ class Tickets(db.Model):
     problem = db.Column(db.Text(), default=None)
     workdone = db.Column(db.Text(), default=None)
 
-    def __init__(self, received, returned, technician, technician2, os, cname, cphone, cemail, problem, workdone):
+    def __init__(self, received, returned, technician, status, os, cname, cphone, cemail, problem, workdone):
         self.received = received
         self.returned = returned
         self.technician = technician
-        self.technician2 = technician2
+        self.status = status
         self.os = os
         self.cname = cname
         self.cphone = cphone
