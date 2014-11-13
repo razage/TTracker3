@@ -1,7 +1,4 @@
 {% extends "base.html" %}
-{% block css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/tsubmit.css') }}">
-{% endblock %}
 {% block statuses %}
     {% if get_flashed_messages(with_categories=true) %}
          <div class="alert alert-danger alert-dismissible" role="alert">
@@ -29,8 +26,8 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ form.received(class="form-control", placeholder="format: yyyy-mm-dd") }}</td>
-                        <td>{{ form.returned(class="form-control", placeholder="format: yyyy-mm-dd") }}</td>
+                        <td>{{ form.received(class="form-control", type="date", placeholder="YYYY-MM-DD") }}</td>
+                        <td>{{ form.returned(class="form-control", type="date", placeholder="YYYY-MM-DD") }}</td>
                         <td>{{ form.status(class="form-control") }}</td>
                     </tr>
                 </tbody>

@@ -3,7 +3,8 @@ from app.constants import ALERT_CATEGORIES
 from app.users.decorators import login_required
 from .forms import TicketSubmitForm
 from .models import Os, Tickets
-from flask import Blueprint, flash, redirect, render_template, request, session, url_for
+from flask import abort, Blueprint, flash, redirect, render_template, request, session, url_for
+from sqlalchemy.orm.exc import NoResultFound
 
 mod = Blueprint('tickets', __name__, url_prefix="/tickets")
 
@@ -13,6 +14,16 @@ mod = Blueprint('tickets', __name__, url_prefix="/tickets")
 def ticketindex():
     tickets = db.session.query(Tickets).all()
     return render_template("tickets/ticketlist.html", title="Browse Tickets", tickets=tickets)
+
+
+@mod.route('/view/<int:tid>/')
+@login_required
+def viewticket(tid):
+    try:
+        ticket = db.session.query(Tickets).filter(Tickets.tid == tid).one()
+    except NoResultFound:
+        abort(404)
+    return render_template("tickets/viewticket.html", title="Ticket #"+str(tid), ticket=ticket)
 
 
 @mod.route('/search/', methods=["GET", "POST"])
@@ -25,7 +36,7 @@ def search():
 @login_required
 def submitticket():
     form = TicketSubmitForm(request.form)
-    form.os.choices = [(o.oid, o.osname) for o in db.session.query(Os).order_by(Os.osname).all()]
+    form.os.choices = [(o.osname, o.osname) for o in db.session.query(Os).order_by(Os.osname).all()]
     if form.validate_on_submit():
         data = [form.received.data, form.returned.data, (None if form.status.data is 0 else session['technician_name']),
                 form.status.data, form.os.data, form.cname.data, form.cphone.data, form.cemail.data, form.problem.data,

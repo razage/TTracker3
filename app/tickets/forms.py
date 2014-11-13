@@ -6,9 +6,9 @@ from wtforms.validators import DataRequired, Optional
 
 class TicketSubmitForm(Form):
     received = DateField('Received', [DataRequired()], format="%Y-%m-%d")
-    returned = DateField('Returned', [Optional()])
+    returned = DateField('Returned', [Optional()], format="%Y-%m-%d")
 
-    os = SelectField('Operating System', coerce=int)
+    os = SelectField('Operating System')
     status = SelectField('Ticket Status', choices=[(idx, val) for idx, val in enumerate(STATUSES)], coerce=int)
 
     cname = StringField('Customer Name', [Optional()])

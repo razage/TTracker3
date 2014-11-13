@@ -3,9 +3,9 @@ from app import db
 
 class Os(db.Model):
     __tablename__ = "opsys"
-    oid = db.Column(db.Integer, primary_key=True)
-    osname = db.Column(db.String(30))
+    osname = db.Column(db.String(30), primary_key=True)
     enabled = db.Column(db.Boolean, nullable=False)
+    tks = db.relationship("Tickets", backref="opsys")
 
     def __init__(self, osname, enabled=True):
         self.osname = osname
@@ -19,7 +19,7 @@ class Tickets(db.Model):
     returned = db.Column(db.Date(), default=None)
     technician = db.Column(db.String(30), db.ForeignKey("technicians.full_name"))
     status = db.Column(db.Integer(), nullable=False)
-    os = db.Column(db.String(30), default=None)
+    os = db.Column(db.String(30), db.ForeignKey("opsys.osname"), nullable=False)
     cname = db.Column(db.String(30), default=None)
     cphone = db.Column(db.String(30), default=None)
     cemail = db.Column(db.String(30), default=None)
