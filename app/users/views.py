@@ -1,7 +1,7 @@
 from app import db
 from app.constants import ALERT_CATEGORIES
 from .decorators import login_required
-from flask import Blueprint, flash, redirect, render_template, request, session, url_for
+from flask import Blueprint, flash, Markup, redirect, render_template, request, session, url_for
 from .forms import LoginForm, RegisterForm
 from .models import Technicians
 from sqlalchemy.exc import IntegrityError
@@ -19,7 +19,7 @@ def login():
             session['techid'] = technician.email
             session['technician_name'] = technician.full_name
             session['admin'] = technician.admin
-            flash("Welcome " + session['technician_name'], ALERT_CATEGORIES['SUCCESS'])
+            flash(Markup("Welcome <b>%s</b>" % session['technician_name']), ALERT_CATEGORIES['SUCCESS'])
             return redirect(url_for("home"))
         flash("Incorrect email or password.", ALERT_CATEGORIES['ERROR'])
     return render_template("users/login.html", form=form, title="Login", page="login")
@@ -46,7 +46,7 @@ def register():
         except IntegrityError:
             flash("This email is already in use.", ALERT_CATEGORIES['ERROR'])
             return redirect(url_for("users.register"))
-        flash("Welcome to the team " + form.firstname.data + ' ' + form.lastname.data, ALERT_CATEGORIES['SUCCESS'])
+        flash(Markup("Welcome to the team <b>%s %s</b>" % (form.firstname.data, form.lastname.data)), ALERT_CATEGORIES['SUCCESS'])
         return redirect(url_for("home"))
     return render_template("users/register.html", form=form, title="Register", page="register")
 

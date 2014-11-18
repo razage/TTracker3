@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+        <form class="form-addos" role="form" method="post" action=".">
+            <h2 class="form-addos-heading">Remove an Operating System</h2>
+            {{ form.csrf_token }}
+            {{ form.osname.label }}
+            {{ form.osname(class="form-control") }}
+            <button class="btn btn-lg btn-danger btn-block" type="submit">Remove OS</button>
+        </form>
+{% endblock %}

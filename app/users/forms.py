@@ -14,5 +14,6 @@ class RegisterForm(Form):
     lastname = StringField('Last Name', [DataRequired(), Length(min=2, max=30,
                                                                 message="Your last name must be within 2-30 characters.")])
     email = StringField('Email', [DataRequired(), Email(message="Invalid email.")])
-    password = PasswordField('Password', [DataRequired()])
+    password = PasswordField('Password', [DataRequired(), Length(min=6, max=30,
+                                                                 message="Your password must be within 6-30 characters.")])
     confirm = PasswordField('Confirm Password', [DataRequired(), EqualTo('password', message='Passwords must match.')])

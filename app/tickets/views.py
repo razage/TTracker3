@@ -3,7 +3,7 @@ from app.constants import ALERT_CATEGORIES
 from app.users.decorators import login_required
 from .forms import TicketSubmitForm
 from .models import Os, Tickets
-from flask import abort, Blueprint, flash, redirect, render_template, request, session, url_for
+from flask import abort, Blueprint, flash, Markup, redirect, render_template, request, session, url_for
 from sqlalchemy.orm.exc import NoResultFound
 
 mod = Blueprint('tickets', __name__, url_prefix="/tickets")
@@ -29,14 +29,14 @@ def viewticket(tid):
 @mod.route('/search/', methods=["GET", "POST"])
 @login_required
 def search():
-    pass
+    return "This feature is not implemented yet."
 
 
 @mod.route('/submit/', methods=["GET", "POST"])
 @login_required
 def submitticket():
     form = TicketSubmitForm(request.form)
-    form.os.choices = [(o.osname, o.osname) for o in db.session.query(Os).order_by(Os.osname).all()]
+    form.os.choices = [(o.osname, o.osname) for o in db.session.query(Os).filter(Os.enabled).order_by(Os.osname).all()]
     if form.validate_on_submit():
         data = [form.received.data, form.returned.data, (None if form.status.data is 0 else session['technician_name']),
                 form.status.data, form.os.data, form.cname.data, form.cphone.data, form.cemail.data, form.problem.data,
@@ -51,5 +51,5 @@ def submitticket():
     else:
         for field, errors in form.errors.items():
             for error in errors:
-                flash("%s: %s" % (getattr(form, field).label.text, error), ALERT_CATEGORIES['ERROR'])
+                flash(Markup("<b>%s:</b> %s" % (getattr(form, field).label.text, error)), ALERT_CATEGORIES['ERROR'])
     return render_template("tickets/submit.html", form=form, title="Submit a Ticket", page="tickets")

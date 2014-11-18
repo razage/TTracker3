@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mini.css') }}">
-    {% block css %}
-    {% endblock %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
 </head>
@@ -27,8 +25,8 @@
                             </ul>
                         </li>
                     {% endif %}
-                    <li{% if page=='tutorial' %} class="active"{% endif %}><a href="#">Tutorials</a></li>
-                    <li{% if page=='about' %} class="active"{% endif %}><a href="#">About</a></li>
+                    <li{% if page=='tutorial' %} class="active"{% endif %}><a href="{{ url_for('tutorials.tutorialindex') }}">Tutorials</a></li>
+                    <li{% if page=='about' %} class="active"{% endif %}><a href="{{ url_for('about') }}">About</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if 'technician_name' in session %}
@@ -37,15 +35,15 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Tools <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li class="dropdown-header">Content Tools</li>
-                                    <li><a href="#">Edit Homepage</a></li>
+                                    <li><a href="{{ url_for('admin.edithp') }}">Edit Homepage</a></li>
                                     <li class="divider"></li>
                                     <li class="dropdown-header">Operating System Tools</li>
-                                    <li><a href="#">Add an Operating System</a></li>
-                                    <li><a href="#">Remove an Operating System</a></li>
+                                    <li><a href="{{ url_for('admin.addos') }}">Add an Operating System</a></li>
+                                    <li><a href="{{ url_for('admin.removeos') }}">Remove an Operating System</a></li>
                                     <li class="divider"></li>
                                     <li class="dropdown-header">Technician Tools</li>
-                                    <li><a href="#">Graduate a Technician</a></li>
-                                    <li><a href="#">Reset Technician Password</a></li>
+                                    <li><a href="{{ url_for('admin.graduate') }}">Graduate a Technician</a></li>
+                                    <li><a href="{{ url_for('admin.resetpwd') }}">Reset Technician Password</a></li>
                                 </ul>
                             </li>
                         {% endif %}

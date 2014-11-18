@@ -39,12 +39,12 @@ body > .container {
     cursor: pointer;
 }
 
-.form-register, .form-signin, .form-submit {
+.form-addos, .form-register, .form-signin, .form-submit {
 	padding: 15px;
 	margin: 0 auto;
 }
 
-.form-register {
+.form-addos, .form-register {
 	max-width: 600px;
 }
 
@@ -56,11 +56,11 @@ body > .container {
 	max-width: 800px;
 }
 
-.form-register .form-register-heading, .form-signin .form-signin-heading, .form-submit .form-submit-heading {
+.form-addos .form-addos-heading, .form-register .form-register-heading, .form-signin .form-signin-heading, .form-submit .form-submit-heading {
 	margin-bottom: 10px;
 }
 
-.form-register .form-control, .form-signin .form-control, .form-submit .form-control {
+.form-addos .form-control, .form-register .form-control, .form-signin .form-control, .form-submit .form-control {
 	position: relative;
 	height: auto;
 	-webkit-box-sizing: border-box;
@@ -70,7 +70,7 @@ body > .container {
 	font-size: 16px;
 }
 
-.form-register .form-control:focus, .form-signin .form-control:focus, .form-submit .form-control:focus {
+.form-addos .form-control:focus, .form-register .form-control:focus, .form-signin .form-control:focus, .form-submit .form-control:focus {
 	z-index: 2;
 }
 
@@ -80,7 +80,7 @@ body > .container {
 	border-bottom-left-radius: 0;
 }
 
-.form-register input[type="password"], .form-signin input[type="password"] {
+.form-addos input[type="text"], .form-addos select, .form-register input[type="password"], .form-signin input[type="password"] {
 	margin-bottom: 10px;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
