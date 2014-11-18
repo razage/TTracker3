@@ -1,7 +1,6 @@
 from .decorators import admin_required
 from .forms import *
-from app import db
-from app.constants import ALERT_CATEGORIES
+from app import app, db
 from app.tickets.models import Os
 from flask import abort, Blueprint, flash, Markup, redirect, render_template, request, url_for
 from sqlalchemy.exc import IntegrityError
@@ -31,7 +30,7 @@ def addos():
             if not os.enabled:
                 os.enabled = True
                 db.session.commit()
-        flash(Markup("The <b>%s</b> Operating System has been added to the database." % form.osname.data), ALERT_CATEGORIES["SUCCESS"])
+        flash(Markup("The <b>%s</b> Operating System has been added to the database." % form.osname.data), app.config["ALERT_CATEGORIES"]["SUCCESS"])
         return redirect(url_for("home"))
     return render_template("admin/addos.html", form=form, title="Add an Operating System")
 
@@ -45,11 +44,11 @@ def removeos():
         try:
             os = db.session.query(Os).filter(Os.osname == form.osname.data).one()
         except NoResultFound():
-            flash("This OS is not on the database.", ALERT_CATEGORIES["ERROR"])
+            flash("This OS is not on the database.", app.config["ALERT_CATEGORIES"]["ERROR"])
             return redirect(url_for("home"))
         os.enabled = False
         db.session.commit()
-        flash(Markup("Operating system <b>%s</b> has been removed." % form.osname.data), ALERT_CATEGORIES["SUCCESS"])
+        flash(Markup("Operating system <b>%s</b> has been removed." % form.osname.data), app.config["ALERT_CATEGORIES"]["SUCCESS"])
         return redirect(url_for("home"))
     return render_template("admin/removeos.html", form=form, title="Remove an Operating System")
 

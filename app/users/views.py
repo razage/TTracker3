@@ -1,5 +1,4 @@
-from app import db
-from app.constants import ALERT_CATEGORIES
+from app import app, db
 from .decorators import login_required
 from flask import Blueprint, flash, Markup, redirect, render_template, request, session, url_for
 from .forms import LoginForm, RegisterForm
@@ -19,9 +18,9 @@ def login():
             session['techid'] = technician.email
             session['technician_name'] = technician.full_name
             session['admin'] = technician.admin
-            flash(Markup("Welcome <b>%s</b>" % session['technician_name']), ALERT_CATEGORIES['SUCCESS'])
+            flash(Markup("Welcome <b>%s</b>" % session['technician_name']), app.config["ALERT_CATEGORIES"]['SUCCESS'])
             return redirect(url_for("home"))
-        flash("Incorrect email or password.", ALERT_CATEGORIES['ERROR'])
+        flash("Incorrect email or password.", app.config["ALERT_CATEGORIES"]['ERROR'])
     return render_template("users/login.html", form=form, title="Login", page="login")
 
 
@@ -31,7 +30,7 @@ def logout():
     session.pop('techid', None)
     session.pop('technician_name', None)
     session.pop('admin', None)
-    flash("You have successfully logged out.", ALERT_CATEGORIES['SUCCESS'])
+    flash("You have successfully logged out.", app.config["ALERT_CATEGORIES"]['SUCCESS'])
     return redirect(url_for("home"))
 
 
@@ -44,9 +43,9 @@ def register():
             db.session.add(technician)
             db.session.commit()
         except IntegrityError:
-            flash("This email is already in use.", ALERT_CATEGORIES['ERROR'])
+            flash("This email is already in use.", app.config["ALERT_CATEGORIES"]['ERROR'])
             return redirect(url_for("users.register"))
-        flash(Markup("Welcome to the team <b>%s %s</b>" % (form.firstname.data, form.lastname.data)), ALERT_CATEGORIES['SUCCESS'])
+        flash(Markup("Welcome to the team <b>%s %s</b>" % (form.firstname.data, form.lastname.data)), app.config["ALERT_CATEGORIES"]['SUCCESS'])
         return redirect(url_for("home"))
     return render_template("users/register.html", form=form, title="Register", page="register")
 

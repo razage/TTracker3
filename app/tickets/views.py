@@ -1,5 +1,4 @@
-from app import db
-from app.constants import ALERT_CATEGORIES
+from app import app, db
 from app.users.decorators import login_required
 from .forms import TicketSubmitForm
 from .models import Os, Tickets
@@ -46,10 +45,10 @@ def submitticket():
                 data[i] = None
         db.session.add(Tickets(*data))
         db.session.commit()
-        flash("Your ticket has been added to the database!", ALERT_CATEGORIES['SUCCESS'])
+        flash("Your ticket has been added to the database!", app.config["ALERT_CATEGORIES"]['SUCCESS'])
         return redirect(url_for("home"))
     else:
         for field, errors in form.errors.items():
             for error in errors:
-                flash(Markup("<b>%s:</b> %s" % (getattr(form, field).label.text, error)), ALERT_CATEGORIES['ERROR'])
+                flash(Markup("<b>%s:</b> %s" % (getattr(form, field).label.text, error)), app.config["ALERT_CATEGORIES"]['ERROR'])
     return render_template("tickets/submit.html", form=form, title="Submit a Ticket", page="tickets")

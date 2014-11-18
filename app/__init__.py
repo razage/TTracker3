@@ -15,7 +15,7 @@ def home():
 
 @app.route('/about/')
 def about():
-    return "This feature is not implemented yet."
+    return render_template("about.html", title="About", page="about")
 
 
 from app.admin.views import mod as adminmod
