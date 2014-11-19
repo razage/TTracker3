@@ -11,7 +11,8 @@
         </thead>
         <tbody>
         {% for t in tickets %}
-            <tr class="row-{{ t.status|statusname }}" onclick="document.location = '{{ url_for('tickets.viewticket', tid=t.tid) }}'">
+            <tr class="row-{{ t.status|statusname }}"
+                onclick="document.location = '{{ url_for('tickets.viewticket', tid=t.tid) }}'">
                 <td>{{ t.tid }}</td>
                 <td>{{ t.received.strftime("%B %d, %Y") }}</td>
                 <td>{{ t.status|statusname }}</td>

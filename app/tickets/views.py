@@ -1,9 +1,11 @@
+from flask import abort, Blueprint, flash, Markup, redirect, render_template, request, session, url_for
+from sqlalchemy.orm.exc import NoResultFound
+
 from app import app, db
 from app.users.decorators import login_required
 from .forms import TicketSubmitForm
 from .models import Os, Tickets
-from flask import abort, Blueprint, flash, Markup, redirect, render_template, request, session, url_for
-from sqlalchemy.orm.exc import NoResultFound
+
 
 mod = Blueprint('tickets', __name__, url_prefix="/tickets")
 
@@ -22,7 +24,7 @@ def viewticket(tid):
         ticket = db.session.query(Tickets).filter(Tickets.tid == tid).one()
     except NoResultFound:
         abort(404)
-    return render_template("tickets/viewticket.html", title="Ticket #"+str(tid), ticket=ticket)
+    return render_template("tickets/viewticket.html", title="Ticket #" + str(tid), ticket=ticket)
 
 
 @mod.route('/search/', methods=["GET", "POST"])
@@ -50,5 +52,6 @@ def submitticket():
     else:
         for field, errors in form.errors.items():
             for error in errors:
-                flash(Markup("<b>%s:</b> %s" % (getattr(form, field).label.text, error)), app.config["ALERT_CATEGORIES"]['ERROR'])
+                flash(Markup("<b>%s:</b> %s" % (getattr(form, field).label.text, error)),
+                      app.config["ALERT_CATEGORIES"]['ERROR'])
     return render_template("tickets/submit.html", form=form, title="Submit a Ticket", page="tickets")

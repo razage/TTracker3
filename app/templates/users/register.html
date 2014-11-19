@@ -6,35 +6,35 @@
             {{ form.csrf_token }}
             <table class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th>{{ form.email.label }}</th>
-                        <th>{{ form.firstname.label }}</th>
-                        <th>{{ form.lastname.label }}</th>
-                    </tr>
+                <tr>
+                    <th>{{ form.email.label }}</th>
+                    <th>{{ form.firstname.label }}</th>
+                    <th>{{ form.lastname.label }}</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>{{ form.email(class="form-control") }}</td>
-                        <td>{{ form.firstname(class="form-control") }}</td>
-                        <td>{{ form.lastname(class="form-control") }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ form.email(class="form-control") }}</td>
+                    <td>{{ form.firstname(class="form-control") }}</td>
+                    <td>{{ form.lastname(class="form-control") }}</td>
+                </tr>
                 </tbody>
             </table>
             <table class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th>{{ form.password.label }}</th>
-                        <th>{{ form.confirm.label }}</th>
-                    </tr>
+                <tr>
+                    <th>{{ form.password.label }}</th>
+                    <th>{{ form.confirm.label }}</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>{{ form.password(class="form-control") }}</td>
-                        <td>{{ form.confirm(class="form-control") }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ form.password(class="form-control") }}</td>
+                    <td>{{ form.confirm(class="form-control") }}</td>
+                </tr>
                 </tbody>
             </table>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+            <button class="btn btn-lg btn-success btn-block" type="submit">Register</button>
         </form>
     </div>
 {% endblock %}

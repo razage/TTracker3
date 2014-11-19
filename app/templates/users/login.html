@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-     <div class="container">
+    <div class="container">
         <form class="form-signin" role="form" method="post" action=".">
             <h2 class="form-signin-heading">Please Login</h2>
             {{ form.csrf_token }}
@@ -8,6 +8,6 @@
             {{ form.password(class='form-control', placeholder='Password') }}
             <button class="btn btn-lg btn-success btn-block" type="submit">Login</button>
         </form>
-     </div>
+    </div>
 {% endblock %}
 

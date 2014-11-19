@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <form class="form-addos" role="form" method="post" action=".">
+        <h2 class="form-addos-heading">Graduate a Technician</h2>
+        {{ form.csrf_token }}
+        {{ form.techname.label }}
+        {{ form.techname(class="form-control") }}
+        <button class="btn btn-lg btn-danger btn-block" type="submit">Graduate Technician</button>
+    </form>
+{% endblock %}

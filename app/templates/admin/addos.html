@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-        <form class="form-addos" role="form" method="post" action=".">
-            <h2 class="form-addos-heading">Add an Operating System</h2>
-            {{ form.csrf_token }}
-            {{ form.osname.label }}
-            {{ form.osname(class="form-control", placeholder="Operating System Name") }}
-            <button class="btn btn-lg btn-success btn-block" type="submit">Add OS</button>
-        </form>
+    <form class="form-addos" role="form" method="post" action=".">
+        <h2 class="form-addos-heading">Add an Operating System</h2>
+        {{ form.csrf_token }}
+        {{ form.osname.label }}
+        {{ form.osname(class="form-control", placeholder="Operating System Name") }}
+        <button class="btn btn-lg btn-success btn-block" type="submit">Add OS</button>
+    </form>
 {% endblock %}

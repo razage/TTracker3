@@ -7,68 +7,74 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand">TTracker3</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li{% if page=='home' %} class="active"{% endif %}><a href="{{ url_for('home') }}">Home</a></li>
-                    {% if 'technician_name' in session %}
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand">TTracker3</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li{% if page=='home' %} class="active"{% endif %}><a href="{{ url_for('home') }}">Home</a></li>
+                {% if 'technician_name' in session %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tickets <span
+                                class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url_for('tickets.ticketindex') }}">Browse Tickets</a></li>
+                            <li><a href="{{ url_for('tickets.search') }}">Search Tickets</a></li>
+                            <li><a href="{{ url_for('tickets.submitticket') }}">Submit a Ticket</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+                <li{% if page=='tutorial' %} class="active"{% endif %}><a
+                        href="{{ url_for('tutorials.tutorialindex') }}">Tutorials</a></li>
+                <li{% if page=='about' %} class="active"{% endif %}><a href="{{ url_for('about') }}">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if 'technician_name' in session %}
+                    {% if session['admin'] %}
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tickets <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Tools <span
+                                    class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url_for('tickets.ticketindex') }}">Browse Tickets</a></li>
-                                <li><a href="{{ url_for('tickets.search') }}">Search Tickets</a></li>
-                                <li><a href="{{ url_for('tickets.submitticket') }}">Submit a Ticket</a></li>
+                                <li class="dropdown-header">Content Tools</li>
+                                <li><a href="{{ url_for('admin.edithp') }}">Edit Homepage</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Operating System Tools</li>
+                                <li><a href="{{ url_for('admin.addos') }}">Add an Operating System</a></li>
+                                <li><a href="{{ url_for('admin.removeos') }}">Remove an Operating System</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Technician Tools</li>
+                                <li><a href="{{ url_for('admin.graduate') }}">Graduate a Technician</a></li>
+                                <li><a href="{{ url_for('admin.resetpwd') }}">Reset Technician Password</a></li>
                             </ul>
                         </li>
                     {% endif %}
-                    <li{% if page=='tutorial' %} class="active"{% endif %}><a href="{{ url_for('tutorials.tutorialindex') }}">Tutorials</a></li>
-                    <li{% if page=='about' %} class="active"{% endif %}><a href="{{ url_for('about') }}">About</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    {% if 'technician_name' in session %}
-                        {% if session['admin'] %}
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Tools <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li class="dropdown-header">Content Tools</li>
-                                    <li><a href="{{ url_for('admin.edithp') }}">Edit Homepage</a></li>
-                                    <li class="divider"></li>
-                                    <li class="dropdown-header">Operating System Tools</li>
-                                    <li><a href="{{ url_for('admin.addos') }}">Add an Operating System</a></li>
-                                    <li><a href="{{ url_for('admin.removeos') }}">Remove an Operating System</a></li>
-                                    <li class="divider"></li>
-                                    <li class="dropdown-header">Technician Tools</li>
-                                    <li><a href="{{ url_for('admin.graduate') }}">Graduate a Technician</a></li>
-                                    <li><a href="{{ url_for('admin.resetpwd') }}">Reset Technician Password</a></li>
-                                </ul>
-                            </li>
-                        {% endif %}
-                        <li><a href="{{ url_for('users.logout') }}">Logout</a></li>
-                    {% else %}
-                        <li{% if page=='login' %} class="active"{% endif %}><a href="{{ url_for('users.login') }}">Login</a></li>
-                        <li{% if page=='register' %} class="active"{% endif %}><a href="{{ url_for('users.register') }}">Register</a></li>
-                    {% endif %}
-                </ul>
-            </div>
+                    <li><a href="{{ url_for('users.logout') }}">Logout</a></li>
+                {% else %}
+                    <li{% if page=='login' %} class="active"{% endif %}><a href="{{ url_for('users.login') }}">Login</a>
+                    </li>
+                    <li{% if page=='register' %} class="active"{% endif %}><a href="{{ url_for('users.register') }}">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
     </div>
-    <div class="container theme-showcase" role="main">
-        {% block statuses %}
-            {% for category, msg in get_flashed_messages(with_categories=true) %}
-                <div class="alert alert-{{ category }} alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    {{ msg }}
-                </div>
-            {% endfor %}
-        {% endblock %}
-        {% block content %}
-        {% endblock %}
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</div>
+<div class="container theme-showcase" role="main">
+    {% block statuses %}
+        {% for category, msg in get_flashed_messages(with_categories=true) %}
+            <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                {{ msg }}
+            </div>
+        {% endfor %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </body>
 </html>

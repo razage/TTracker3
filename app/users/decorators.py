@@ -1,6 +1,8 @@
-from app import app
-from flask import flash, redirect, session, url_for
 from functools import wraps
+
+from flask import flash, redirect, session, url_for
+
+from app import app
 
 
 def login_required(f):
@@ -10,4 +12,5 @@ def login_required(f):
             flash("You need to be signed in to view this page.", app.config["ALERT_CATEGORIES"]['ERROR'])
             return redirect(url_for("home"))
         return f(*args, **kwargs)
+
     return decorated_function

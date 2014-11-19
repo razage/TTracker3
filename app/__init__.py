@@ -1,6 +1,8 @@
-from app.customfilters import statusname
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+
+from app.customfilters import statusname
+
 
 app = Flask(__name__)
 app.config.from_object('config')

@@ -1,20 +1,20 @@
 body {
-	padding-top: 70px;
-	padding-bottom: 30px;
-	background-color: #eee;
+    padding-top: 70px;
+    padding-bottom: 30px;
+    background-color: #eee;
 }
 
 body > .container {
-	padding-top: 40px;
-	padding-bottom: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 
 .theme > p > .btn {
-  margin: 5px 0;
+    margin: 5px 0;
 }
 
 .theme .navbar .container {
-  width: auto;
+    width: auto;
 }
 
 .row-Unclaimed {
@@ -40,57 +40,57 @@ body > .container {
 }
 
 .form-addos, .form-register, .form-signin, .form-submit {
-	padding: 15px;
-	margin: 0 auto;
+    padding: 15px;
+    margin: 0 auto;
 }
 
 .form-addos, .form-register {
-	max-width: 600px;
+    max-width: 600px;
 }
 
 .form-signin {
-	max-width: 330px;
+    max-width: 330px;
 }
 
 .form-submit {
-	max-width: 800px;
+    max-width: 800px;
 }
 
 .form-addos .form-addos-heading, .form-register .form-register-heading, .form-signin .form-signin-heading, .form-submit .form-submit-heading {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .form-addos .form-control, .form-register .form-control, .form-signin .form-control, .form-submit .form-control {
-	position: relative;
-	height: auto;
-	-webkit-box-sizing: border-box;
-		-moz-box-sizing: border-box;
-			box-sizing: border-box;
-	padding: 10px;
-	font-size: 16px;
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
 }
 
 .form-addos .form-control:focus, .form-register .form-control:focus, .form-signin .form-control:focus, .form-submit .form-control:focus {
-	z-index: 2;
+    z-index: 2;
 }
 
 .form-register input[type="email"], .form-signin input[type="email"] {
-	margin-bottom: -1px;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .form-addos input[type="text"], .form-addos select, .form-register input[type="password"], .form-signin input[type="password"] {
-	margin-bottom: 10px;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .table > thead:first-child > tr:first-child > th {
     border-top: 1px solid #B8B8B8;
 }
 
-.table-bordered > thead > tr > th{
+.table-bordered > thead > tr > th {
     background: #DEDEDE;
     border: 1px solid #B8B8B8;
 }

@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% block statuses %}
     {% if get_flashed_messages(with_categories=true) %}
-         <div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+                    class="sr-only">Close</span></button>
             <ul>
                 {% for category, msg in get_flashed_messages(with_categories=true) %}
                     <li>{{ msg }}</li>
                 {% endfor %}
             </ul>
-         </div>
+        </div>
     {% endif %}
 {% endblock %}
 {% block content %}
@@ -18,70 +19,70 @@
             {{ form.csrf_token }}
             <table class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th>{{ form.received.label }}</th>
-                        <th>{{ form.returned.label }}</th>
-                        <th>{{ form.status.label }}</th>
-                    </tr>
+                <tr>
+                    <th>{{ form.received.label }}</th>
+                    <th>{{ form.returned.label }}</th>
+                    <th>{{ form.status.label }}</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>{{ form.received(class="form-control", type="date", placeholder="YYYY-MM-DD") }}</td>
-                        <td>{{ form.returned(class="form-control", type="date", placeholder="YYYY-MM-DD") }}</td>
-                        <td>{{ form.status(class="form-control") }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ form.received(class="form-control", type="date", placeholder="YYYY-MM-DD") }}</td>
+                    <td>{{ form.returned(class="form-control", type="date", placeholder="YYYY-MM-DD") }}</td>
+                    <td>{{ form.status(class="form-control") }}</td>
+                </tr>
                 </tbody>
             </table>
             <table class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th>{{ form.os.label }}</th>
-                    </tr>
+                <tr>
+                    <th>{{ form.os.label }}</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>{{ form.os(class="form-control") }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ form.os(class="form-control") }}</td>
+                </tr>
                 </tbody>
             </table>
             <table class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th>{{ form.cname.label }}</th>
-                        <th>{{ form.cphone.label }}</th>
-                        <th>{{ form.cemail.label }}</th>
-                    </tr>
+                <tr>
+                    <th>{{ form.cname.label }}</th>
+                    <th>{{ form.cphone.label }}</th>
+                    <th>{{ form.cemail.label }}</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>{{ form.cname(class="form-control", placeholder="Customer Name") }}</td>
-                        <td>{{ form.cphone(class="form-control", placeholder="Numbers only") }}</td>
-                        <td>{{ form.cemail(class="form-control", placeholder="something@something.com") }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ form.cname(class="form-control", placeholder="Customer Name") }}</td>
+                    <td>{{ form.cphone(class="form-control", placeholder="Numbers only") }}</td>
+                    <td>{{ form.cemail(class="form-control", placeholder="something@something.com") }}</td>
+                </tr>
                 </tbody>
             </table>
             <table class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th>{{ form.problem.label }}</th>
-                    </tr>
+                <tr>
+                    <th>{{ form.problem.label }}</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>{{ form.problem(class="form-control", rows=5, placeholder="Describe the problem the customer is having.") }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ form.problem(class="form-control", rows=5, placeholder="Describe the problem the customer is having.") }}</td>
+                </tr>
                 </tbody>
             </table>
             <table class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th>{{ form.workdone.label }}</th>
-                    </tr>
+                <tr>
+                    <th>{{ form.workdone.label }}</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>{{ form.workdone(class="form-control", rows=10, placeholder="Describe what work you've done to fix their problems.") }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ form.workdone(class="form-control", rows=10, placeholder="Describe what work you've done to fix their problems.") }}</td>
+                </tr>
                 </tbody>
             </table>
             <button class="btn btn-lg btn-success btn-block" type="submit">Submit Ticket</button>

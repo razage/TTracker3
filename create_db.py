@@ -2,16 +2,16 @@ from app import db
 from app.users.models import Technicians
 from app.tickets.models import Os
 
-#Creating the tables
+# Creating the tables
 db.create_all()
 db.session.commit()
 
-#Predefined users
+# Predefined users
 db.session.add(Technicians("admin@ttracker3.com", "Test", "User", "password", True, True))
 db.session.commit()
 
 
-#Predefined Operating Systems
+# Predefined Operating Systems
 db.session.add(Os("Debian"))
 db.session.add(Os("Fedora"))
 db.session.add(Os("OS X 10.0 Cheetah"))
