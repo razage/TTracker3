@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <form class="form-addos" role="form" method="post" action=".">
+        <h2 class="form-addos-heading">Reset a Password</h2>
+        {{ form.csrf_token }}
+        {{ form.techname.label }}
+        {{ form.techname(class="form-control") }}
+        {{ form.password.label }}
+        {{ form.password(class="form-control") }}
+        {{ form.confirm.label }}
+        {{ form.confirm(class="form-control") }}
+        <button class="btn btn-lg btn-success btn-block" type="submit">Reset Password</button>
+    </form>
+{% endblock %}

@@ -19,4 +19,4 @@ class ResetTechPasswordForm(Form):
     techname = SelectField('Technician')
     password = PasswordField('New Password', [DataRequired(), Length(min=6, max=30,
                                                                      message="Your password must be within 6-30 characters.")])
-    confirm = PasswordField('Confirm New Password', EqualTo('password', message="Your passwords must match."))
+    confirm = PasswordField('Confirm New Password', [EqualTo('password', message="Your passwords must match.")])

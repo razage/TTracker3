@@ -44,7 +44,7 @@ body > .container {
     margin: 0 auto;
 }
 
-.form-addos, .form-register {
+.form-addos {
     max-width: 600px;
 }
 
@@ -52,7 +52,7 @@ body > .container {
     max-width: 330px;
 }
 
-.form-submit {
+.form-register, .form-submit {
     max-width: 800px;
 }
 
@@ -80,7 +80,7 @@ body > .container {
     border-bottom-left-radius: 0;
 }
 
-.form-addos input[type="text"], .form-addos select, .form-register input[type="password"], .form-signin input[type="password"] {
+.form-addos input[type="password"]:nth-child(even), .form-addos input[type="text"], .form-addos select, .form-register input[type="password"], .form-signin input[type="password"] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;

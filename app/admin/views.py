@@ -1,6 +1,7 @@
 from flask import Blueprint, flash, Markup, redirect, render_template, request, url_for
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.exc import NoResultFound
+from werkzeug.security import generate_password_hash
 
 from .decorators import admin_required
 from .forms import *
@@ -80,4 +81,14 @@ def graduate():
 @mod.route('/resetpwd/', methods=['GET', 'POST'])
 @admin_required
 def resetpwd():
-    return "This feature is not implemented yet."
+    form = ResetTechPasswordForm(request.form)
+    form.techname.choices = [(u.full_name, u.full_name) for u in
+                             db.session.query(Technicians).filter(Technicians.enrolled).order_by(Technicians.full_name)]
+    if form.validate_on_submit():
+        tech = db.session.query(Technicians).filter(Technicians.full_name == form.techname.data).one()
+        tech.password = generate_password_hash(form.password.data)
+        db.session.commit()
+        flash(Markup("User <b>%s's</b> password has been updated." % form.techname.data),
+              app.config["ALERT_CATEGORIES"]["SUCCESS"])
+        return redirect(url_for("home"))
+    return render_template("admin/reset.html", form=form, title="Reset Technician's Password")
