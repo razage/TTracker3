@@ -55,3 +55,9 @@ def submitticket():
                 flash(Markup("<b>%s:</b> %s" % (getattr(form, field).label.text, error)),
                       app.config["ALERT_CATEGORIES"]['ERROR'])
     return render_template("tickets/submit.html", form=form, title="Submit a Ticket", page="tickets")
+
+
+@mod.route('/edit/<int:tid>/', methods=["GET", "POST"])
+@login_required
+def editticket(tid):
+    return "This feature is not implemented yet."

@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, Markup, redirect, render_template, request, url_for
+from flask import Blueprint, flash, Markup, redirect, render_template, request, session, url_for
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.security import generate_password_hash
@@ -63,7 +63,10 @@ def removeos():
 def graduate():
     form = GraduateForm(request.form)
     form.techname.choices = [(u.full_name, u.full_name) for u in
-                             db.session.query(Technicians).filter(Technicians.enrolled).order_by(Technicians.full_name)]
+                             db.session.query(Technicians).filter(Technicians.enrolled,
+                                                                  Technicians.full_name != session[
+                                                                      'technician_name']).order_by(
+                                 Technicians.full_name)]
     if form.validate_on_submit():
         try:
             tech = db.session.query(Technicians).filter(Technicians.full_name == form.techname.data).one()
@@ -83,7 +86,10 @@ def graduate():
 def resetpwd():
     form = ResetTechPasswordForm(request.form)
     form.techname.choices = [(u.full_name, u.full_name) for u in
-                             db.session.query(Technicians).filter(Technicians.enrolled).order_by(Technicians.full_name)]
+                             db.session.query(Technicians).filter(Technicians.enrolled,
+                                                                  Technicians.full_name != session[
+                                                                      'technician_name']).order_by(
+                                 Technicians.full_name)]
     if form.validate_on_submit():
         tech = db.session.query(Technicians).filter(Technicians.full_name == form.techname.data).one()
         tech.password = generate_password_hash(form.password.data)

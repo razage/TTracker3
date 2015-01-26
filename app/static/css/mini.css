@@ -94,7 +94,3 @@ body > .container {
     background: #DEDEDE;
     border: 1px solid #B8B8B8;
 }
-
-.form-submit input[type="date"] {
-    padding: 2px;
-}
