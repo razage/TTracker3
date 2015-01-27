@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block statuses %}
+    {% if get_flashed_messages(with_categories=true) %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+                    class="sr-only">Close</span></button>
+            <ul>
+                {% for category, msg in get_flashed_messages(with_categories=true) %}
+                    <li>{{ msg }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <form class="form-submit" role="form" method="post" action=".">
+            <h2 class="form-submit-heading">Edit Ticket</h2>
+            {{ form.csrf_token }}
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>{{ form.received.label }}</th>
+                    <th>{{ form.returned.label }}</th>
+                    <th>{{ form.status.label }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    {% if ticket.received != None %}
+                        <td>{{ form.received(class="form-control", placeholder="YYYY-MM-DD", value=ticket.received) }}</td>
+                    {% else %}
+                        <td>{{ form.received(class="form-control", placeholder="YYYY-MM-DD") }}</td>
+                    {% endif %}
+                    {% if ticket.returned != None %}
+                        <td>{{ form.returned(class="form-control", placeholder="YYYY-MM-DD", value=ticket.returned)}}</td>
+                    {% else %}
+                        <td>{{ form.returned(class="form-control", placeholder="YYYY-MM-DD")}}</td>
+                    {% endif %}
+                    <td>{{ form.status(class="form-control") }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>{{ form.os.label }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ form.os(class="form-control")}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>{{ form.cname.label }}</th>
+                    <th>{{ form.cphone.label }}</th>
+                    <th>{{ form.cemail.label }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    {% if ticket.cname != None %}
+                        <td>{{ form.cname(class="form-control", placeholder="Customer Name", value=ticket.cname) }}</td>
+                    {% else %}
+                        <td>{{ form.cname(class="form-control", placeholder="Customer Name") }}</td>
+                    {% endif %}
+                    {% if ticket.cphone != None %}
+                        <td>{{ form.cphone(class="form-control", placeholder="Numbers only", value=ticket.cphone) }}</td>
+                    {% else %}
+                        <td>{{ form.cphone(class="form-control", placeholder="Numbers only") }}</td>
+                    {% endif %}
+                    {% if ticket.cemail != None %}
+                        <td>{{ form.cemail(class="form-control", placeholder="something@something.com", value=ticket.cemail) }}</td>
+                    {% else %}
+                        <td>{{ form.cemail(class="form-control", placeholder="something@something.com") }}</td>
+                    {% endif %}
+                </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>{{ form.problem.label }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ form.problem(class="form-control", rows=5, placeholder="Describe the problem the customer is having.") }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>{{ form.workdone.label }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ form.workdone(class="form-control", rows=10, placeholder="Describe what work you've done to fix their problems.", content=ticket.workdone) }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-lg btn-success btn-block" type="submit">Update Ticket</button>
+        </form>
+    </div>
+{% endblock %}
