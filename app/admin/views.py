@@ -1,4 +1,5 @@
 from flask import Blueprint, flash, Markup, redirect, render_template, request, session, url_for
+from os.path import join
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.security import generate_password_hash
@@ -16,7 +17,20 @@ mod = Blueprint('admin', __name__, url_prefix="/admin")
 @mod.route('/edithp/', methods=['GET', 'POST'])
 @admin_required
 def edithp():
-    return "This feature is not implemented yet."
+    file = join('app', 'static', 'home.txt')
+    form = EditHomepageForm(request.form)
+    if form.validate_on_submit():
+        f = open(file, 'w')
+        f.write(form.bodytext.data)
+        f.close()
+        flash(Markup("<b>Success!</b> The homepage has been updated."), app.config['ALERT_CATEGORIES']['SUCCESS'])
+        return redirect(url_for('home'))
+    try:
+        chp = open(file, 'r').read()
+    except FileNotFoundError:
+        chp = "Home.txt does not exist."
+    form.bodytext.data = chp
+    return render_template('admin/edithp.html', form=form, title="Edit Homepage")
 
 
 @mod.route('/addos/', methods=['GET', 'POST'])

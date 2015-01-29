@@ -39,7 +39,7 @@ body > .container {
     cursor: pointer;
 }
 
-.form-addos, .form-register, .form-signin, .form-submit {
+.form-addos, .form-edit, .form-register, .form-signin, .form-submit {
     padding: 15px;
     margin: 0 auto;
 }
@@ -52,15 +52,15 @@ body > .container {
     max-width: 330px;
 }
 
-.form-register, .form-submit {
+.form-register, .form-submit, .form-edit {
     max-width: 800px;
 }
 
-.form-addos .form-addos-heading, .form-register .form-register-heading, .form-signin .form-signin-heading, .form-submit .form-submit-heading {
+.form-addos .form-addos-heading, .form-edit-heading, .form-register .form-register-heading, .form-signin .form-signin-heading, .form-submit .form-submit-heading {
     margin-bottom: 10px;
 }
 
-.form-addos .form-control, .form-register .form-control, .form-signin .form-control, .form-submit .form-control {
+.form-addos .form-control, .form-edit .form-control, .form-register .form-control, .form-signin .form-control, .form-submit .form-control {
     position: relative;
     height: auto;
     -webkit-box-sizing: border-box;
@@ -70,7 +70,7 @@ body > .container {
     font-size: 16px;
 }
 
-.form-addos .form-control:focus, .form-register .form-control:focus, .form-signin .form-control:focus, .form-submit .form-control:focus {
+.form-addos .form-control:focus, .form-edit .form-control:focus, .form-register .form-control:focus, .form-signin .form-control:focus, .form-submit .form-control:focus {
     z-index: 2;
 }
 
@@ -84,6 +84,10 @@ body > .container {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+.form-edit textarea {
+    margin-bottom: 10px;
 }
 
 .table > thead:first-child > tr:first-child > th {

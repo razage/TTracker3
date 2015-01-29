@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2 class="form-edit-heading">{{ form.bodytext.label }}</h2>
+    <form class="form-edit" role="form" method="post" action=".">
+        {{ form.csrf_token }}
+        {{ form.bodytext(class="form-control", rows="10", placeholder="type content here to add it to the homepage.") }}
+        <button class="btn btn-lg btn-success btn-block" type="submit">Update Homepage</button>
+    </form>
+{% endblock %}

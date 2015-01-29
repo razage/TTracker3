@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+from os.path import join
 
 from app.customfilters import statusname
 
@@ -12,7 +13,8 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def home():
-    return render_template("home.html", title="TicketTracker3", page="home")
+    f = open(join('app', 'static', 'home.txt'), 'r').read()
+    return render_template("home.html", title="TicketTracker3", page="home", text=f)
 
 
 @app.route('/about/')
