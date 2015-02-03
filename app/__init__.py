@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from os.path import join
 
@@ -11,9 +11,14 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+
 @app.route('/')
 def home():
-    f = open(join('app', 'static', 'home.txt'), 'r').read()
+    f = open(join(app.root_path, 'static', 'home.txt'), 'r').read()
     return render_template("home.html", title="TicketTracker3", page="home", text=f)
 
 

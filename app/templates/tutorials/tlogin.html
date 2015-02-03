@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Logging In</h1>
+    <div class="well">
+        <p>Logging in allows you to submit tickets and edit tickets you've added previously. Besides the tutorials, most of the content requires you to be logged in to view.</p>
+        <br />
+        <ol>
+            <li>Click the "Login" link on the right side of the navigation bar.</li>
+            <li>Fill out the information the form asks for. All fields are required.</li>
+            <br />
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Additional Information</div>
+                </div>
+                <div class="panel-body">You may be wondering why there is no "Remember me" option. I've decided not to implement this feature. You should remain logged in as long as the browser is open and potentially longer depending on the server this is hosted on.</div>
+            </div>
+            <li>Click the "Login" button to submit your information. You will receive a success message and be redirected if the information is correct.</li>
+        </ol>
+        <br />
+        <button class="btn btn-default btn-lg" onclick="document.location = '{{ url_for('tutorials.tutregister') }}'"><span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>Tutorial 1: Registration</button>
+        <button class="btn btn-default btn-lg btn-right" onclick="document.location = '{{ url_for('tutorials.tutlogin') }}'">Tutorial 3: Browsing Tickets<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></button>
+    </div>
+{% endblock %}

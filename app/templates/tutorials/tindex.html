@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Tutorials</h1>
+    <div class="well">
+        <h2>User Features</h2>
+        <ol>
+            <li><a href="{{ url_for('tutorials.tutregister') }}">Registration</a></li>
+            <li><a href="{{ url_for('tutorials.tutlogin') }}">Logging In</a></li>
+            <li>Browsing Tickets</li>
+            <li>Searching Tickets</li>
+            <li>Submitting a Ticket</li>
+            <li>Editting a Ticket</li>
+        </ol>
+        <hr />
+        {% if 'technician_name' in session and session['admin'] %}
+            <h2>Admin Features</h2>
+            <ul>
+                <li>Editting the Homepage</li>
+                <li>Adding or Removing an Operating System</li>
+                <li>Graduating a Technician</li>
+                <li>Resetting a Technician's Password</li>
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

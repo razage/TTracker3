@@ -98,3 +98,7 @@ body > .container {
     background: #DEDEDE;
     border: 1px solid #B8B8B8;
 }
+
+.btn-right {
+    float: right;
+}
