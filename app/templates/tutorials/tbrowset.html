@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Browsing Tickets</h1>
+    <div class="well">
+        <p>Browsing tickets is obviously an important part of this system. It allows technicians to see what others did
+            to fix various problems. It also allows the administrators to see what their technicians have been up
+            to.</p>
+        <br/>
+        <ol>
+            <li>Once you are logged in, click the "Tickets" option on the navigation bar. This will show an additional
+                menu of options.
+            </li>
+            <li>Select the "Browse Tickets" option.</li>
+        </ol>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">Additional Information</div>
+            </div>
+            <div class="panel-body">
+                <p>You may notice that each ticket is colored a certain way. These colors correspond to the current
+                    status of the ticket. Here is a key for what each color represents:</p>
+                <ul>
+                    <li><span style="background:#FC818D;">Unclaimed</span></li>
+                    <li><span style="background:#F6FC81;">Repairing</span></li>
+                    <li><span style="background:#FCD781;">Waiting</span></li>
+                    <li><span style="background:#81FC83;">Complete</span></li>
+                </ul>
+            </div>
+        </div>
+        <br/>
+        <button class="btn btn-default btn-lg" onclick="document.location = '{{ url_for('tutorials.tutlogin') }}'"><span
+                class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>Tutorial 3: Browsing Tickets
+        </button>
+        <button class="btn btn-default btn-lg btn-right" onclick="document.location = '{{ url_for('home') }}'">Tutorial
+            5: Searching Tickets<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></button>
+    </div>
+{% endblock %}

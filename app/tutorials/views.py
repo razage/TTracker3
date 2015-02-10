@@ -1,7 +1,5 @@
 from flask import Blueprint, render_template
 
-from app.admin.decorators import admin_required
-
 mod = Blueprint("tutorials", __name__, url_prefix="/tutorials")
 
 
@@ -18,3 +16,8 @@ def tutregister():
 @mod.route('/login/')
 def tutlogin():
     return render_template("tutorials/tlogin.html", title="Tutorial - Logging In")
+
+
+@mod.route('/browsetickets/')
+def tutbrowsetickets():
+    return render_template("tutorials/tbrowset.html", title="Tutorial - Browsing Tickets")
