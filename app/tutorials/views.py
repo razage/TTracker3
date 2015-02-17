@@ -21,3 +21,20 @@ def tutlogin():
 @mod.route('/browsetickets/')
 def tutbrowsetickets():
     return render_template("tutorials/tbrowset.html", title="Tutorial - Browsing Tickets")
+
+
+@mod.route('/searchtickets/')
+def tutsearchtickets():
+    return "Nothing to see here."
+    # return render_template("tutorials/tsearch.html", title="Tutorial - Searching Tickets")
+
+
+@mod.route('/submittickets/')
+def tutsubmittickets():
+    return render_template("tutorials/tsubmit.html", title="Tutorial - Submitting Tickets")
+
+
+@mod.route('/edittickets/')
+def tutedittickets():
+    return "Nothing to see here."
+    #return render_template("tutorials/tedit.html", title="Tutorial - Editing Tickets")

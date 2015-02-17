@@ -7,15 +7,15 @@
             <li><a href="{{ url_for('tutorials.tutregister') }}">Registration</a></li>
             <li><a href="{{ url_for('tutorials.tutlogin') }}">Logging In</a></li>
             <li><a href="{{ url_for('tutorials.tutbrowsetickets') }}">Browsing Tickets</a></li>
-            <li>Searching Tickets</li>
-            <li>Submitting a Ticket</li>
-            <li>Editting a Ticket</li>
+            <li><a href="{{ url_for('tutorials.tutsearchtickets') }}">Searching Tickets</a></li>
+            <li><a href="{{ url_for('tutorials.tutsubmittickets') }}">Submitting Tickets</a></li>
+            <li><a href="{{ url_for('tutorials.tutedittickets') }}">Editing Tickets</a></li>
         </ol>
         <hr />
         {% if 'technician_name' in session and session['admin'] %}
             <h2>Admin Features</h2>
             <ul>
-                <li>Editting the Homepage</li>
+                <li>Editing the Homepage</li>
                 <li>Adding or Removing an Operating System</li>
                 <li>Graduating a Technician</li>
                 <li>Resetting a Technician's Password</li>
