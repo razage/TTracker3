@@ -9,9 +9,9 @@ class LoginForm(Form):
 
 
 class RegisterForm(Form):
-    firstname = StringField('First Name', [DataRequired(), Length(min=2, max=30,
+    firstname = StringField('First Name', [DataRequired(), Length(min=1, max=30,
                                                                   message="Your first name must be within 2-30 characters.")])
-    lastname = StringField('Last Name', [DataRequired(), Length(min=2, max=30,
+    lastname = StringField('Last Name', [DataRequired(), Length(min=1, max=30,
                                                                 message="Your last name must be within 2-30 characters.")])
     email = StringField('Email', [DataRequired(), Email(message="Invalid email.")])
     password = PasswordField('Password', [DataRequired(), Length(min=6, max=30,

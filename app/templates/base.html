@@ -21,7 +21,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tickets <span
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url_for('tickets.ticketindex') }}">Browse Tickets</a></li>
+                            <li><a href="{{ url_for('tickets.ticketindex', page=1) }}">Browse Tickets</a></li>
                             <li><a href="{{ url_for('tickets.search') }}">Search Tickets</a></li>
                             <li><a href="{{ url_for('tickets.submitticket') }}">Submit a Ticket</a></li>
                         </ul>

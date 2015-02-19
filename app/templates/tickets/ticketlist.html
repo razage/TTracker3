@@ -25,4 +25,27 @@
         {% endfor %}
         </tbody>
     </table>
+    <nav class="pagebar">
+        <ul class="pagination">
+            {% if cpage == 1 %}
+                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+            {% else %}
+                <li><a href="{{ url_for('tickets.ticketindex', page=cpage-1) }}" aria-label="Previous"><span
+                        aria-hidden="true">&laquo;</span></a></li>
+            {% endif %}
+            {% for p in range(maxpage) %}
+                {% if p+1 == cpage %}
+                    <li class="active"><a href="#">{{ p+1 }}</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('tickets.ticketindex', page=p+1) }}">{{ p+1 }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if cpage == maxpage %}
+                <li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+            {% else %}
+                <li><a href="{{ url_for('tickets.ticketindex', page=cpage+1) }}" aria-label="Next"><span
+                        aria-hidden="true">&raquo;</span></a></li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endblock %}

@@ -16,16 +16,20 @@ def login():
     form = LoginForm(request.form)
     if form.validate_on_submit():
         technician = Technicians.query.filter_by(email=form.email.data).first()
-        if not technician.enrolled:
-            flash(Markup("Technician <b>%s</b> has been graduated and may not login." % technician.full_name),
-                  app.config["ALERT_CATEGORIES"]["INFO"])
-            return redirect(url_for("home"))
-        elif technician and check_password_hash(technician.password, form.password.data):
-            session['techid'] = technician.email
-            session['technician_name'] = technician.full_name
-            session['admin'] = technician.admin
-            flash(Markup("Welcome <b>%s</b>" % session['technician_name']), app.config["ALERT_CATEGORIES"]["SUCCESS"])
-            return redirect(url_for("home"))
+        try:
+            if not technician.enrolled:
+                flash(Markup("Technician <b>%s</b> has been graduated and may not login." % technician.full_name),
+                      app.config["ALERT_CATEGORIES"]["INFO"])
+                return redirect(url_for("home"))
+            elif technician and check_password_hash(technician.password, form.password.data):
+                session['techid'] = technician.email
+                session['technician_name'] = technician.full_name
+                session['admin'] = technician.admin
+                flash(Markup("Welcome <b>%s</b>" % session['technician_name']),
+                      app.config["ALERT_CATEGORIES"]["SUCCESS"])
+                return redirect(url_for("home"))
+        except AttributeError:
+            pass
         flash("Incorrect email or password.", app.config["ALERT_CATEGORIES"]["ERROR"])
     return render_template("users/login.html", form=form, title="Login", page="login")
 

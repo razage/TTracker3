@@ -9,12 +9,22 @@ from .models import Os, Tickets
 
 mod = Blueprint('tickets', __name__, url_prefix="/tickets")
 
-
 @mod.route('/')
 @login_required
-def ticketindex():
-    tickets = db.session.query(Tickets).all()
-    return render_template("tickets/ticketlist.html", title="Browse Tickets", tickets=tickets)
+def redirtindex():
+    return redirect(url_for('ticketindex', page=1))
+
+
+@mod.route('/<int:page>/')
+@login_required
+def ticketindex(page):
+    totalpages = int(db.session.query(Tickets).count() / app.config['TICKETSPERPAGE'])
+    if totalpages is 0:
+        totalpages = 1
+    tickets = db.session.query(Tickets).limit(app.config['TICKETSPERPAGE']).offset(
+        app.config['TICKETSPERPAGE'] * (page - 1))
+    return render_template("tickets/ticketlist.html", title="Browse Tickets", tickets=tickets, cpage=page,
+                           maxpage=totalpages)
 
 
 @mod.route('/view/<int:tid>/')
@@ -24,7 +34,8 @@ def viewticket(tid):
         ticket = db.session.query(Tickets).filter(Tickets.tid == tid).one()
     except NoResultFound:
         abort(404)
-    return render_template("tickets/viewticket.html", title="Ticket #%s" % tid, ticket=ticket, tid=1)
+    pn = [ticket.cphone[:3], ticket.cphone[3:-3], ticket.cphone[-3:]]
+    return render_template("tickets/viewticket.html", title="Ticket #%s" % tid, ticket=ticket, tid=tid)
 
 
 @mod.route('/search/', methods=["GET", "POST"])
@@ -46,7 +57,7 @@ def submitticket():
         db.session.add(Tickets(*data))
         db.session.commit()
         flash("Your ticket has been added to the database!", app.config["ALERT_CATEGORIES"]['SUCCESS'])
-        return redirect(url_for("home"))
+        return redirect(url_for('tickets.ticketindex', page=1))
     else:
         for field, errors in form.errors.items():
             for error in errors:
@@ -64,20 +75,24 @@ def editticket(tid):
         ticket = db.session.query(Tickets).filter(Tickets.tid == tid).one()
     except NoResultFound:
         flash("The ticket requested does not exist.", app.config["ALERT_CATEGORIES"]["ERROR"])
-    if session['technician_name'] != ticket.technician or not session['admin']:
-        flash("You do not have permission to edit this ticket.", app.config["ALERT_CATEGORIES"]["ERROR"])
-        return redirect(url_for('home'))
+    if session['technician_name'] != ticket.technician:
+        if not session['admin']:
+            flash("You do not have permission to edit this ticket.", app.config["ALERT_CATEGORIES"]["ERROR"])
+            return redirect(url_for('home'))
     if form.validate_on_submit():
         ticket.recieved = form.received.data
         ticket.returned = (None if form.returned.data == '' else form.returned.data)
         ticket.status = form.status.data
-        ticket.technician = (None if form.status.data == 0 else session['technician_name'])
+        if session['admin']:
+            ticket.technician = (None if form.status.data == 0 else ticket.technician)
+        else:
+            ticket.technician = (None if form.status.data == 0 else session['technician_name'])
         ticket.os = form.os.data
         ticket.cname = (None if form.cname.data == '' else form.cname.data)
         ticket.cphone = (None if form.cphone.data == '' else form.cphone.data)
         ticket.cemail = (None if form.cemail.data == '' else form.cemail.data)
         ticket.problem = (None if form.problem.data == '' else form.problem.data)
-        ticket.workdone = form.workdone.data
+        ticket.workdone = (None if form.workdone.data == '' else form.workdone.data)
         db.session.commit()
         flash(Markup("<b>Success!</b> Ticket #%s has been edited." % tid), app.config["ALERT_CATEGORIES"]["SUCCESS"])
         return redirect(url_for("tickets.viewticket", tid=tid))

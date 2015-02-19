@@ -64,7 +64,7 @@
                 {% if ticket.cphone == None %}
                     <td>N/a</td>
                 {% else %}
-                    <td>{{ ticket.cphone }}</td>
+                    <td>({{ ticket.cphone[:3] }}) {{ ticket.cphone[3:-4] }}-{{ ticket.cphone[-4:] }}</td>
                 {% endif %}
                 {% if ticket.cemail == None %}
                     <td>N/a</td>
