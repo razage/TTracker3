@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Semester Index</h1>
+    {% for s in range(config['FIRST_YEAR'], config['CUR_YEAR']+1) %}
+        <table class="sv table table-bordered">
+            <thead>
+            <tr>
+                <th>{{ s }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><a href="{{ url_for('tickets.semesterview', semester='spring', year=s) }}">Spring {{ s }}</a></td>
+            </tr>
+            <tr>
+                <td><a href="{{ url_for('tickets.semesterview', semester='fall', year=s) }}">Fall {{ s }}</a></td>
+            </tr>
+            </tbody>
+        </table>
+    {% endfor %}
+{% endblock %}

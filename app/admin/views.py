@@ -1,5 +1,6 @@
-from flask import Blueprint, flash, Markup, redirect, render_template, request, session, url_for
 from os.path import join
+
+from flask import Blueprint, flash, Markup, redirect, render_template, request, session, url_for
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.security import generate_password_hash
@@ -112,3 +113,14 @@ def resetpwd():
               app.config["ALERT_CATEGORIES"]["SUCCESS"])
         return redirect(url_for("home"))
     return render_template("admin/reset.html", form=form, title="Reset Technician's Password")
+
+
+@mod.route('/semesterviews/')
+@admin_required
+def semesterviewindex():
+    year = app.config["FIRST_YEAR"]
+    years = []
+    while year <= app.config["CUR_YEAR"]:
+        years.append(year)
+        year += 1
+    return render_template("admin/semesterindex.html", title="Semester Index")

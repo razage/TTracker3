@@ -12,8 +12,9 @@ ALERT_CATEGORIES = {"SUCCESS": "success", "INFO": "info", "ERROR": "danger"}
 
 SITE_VERSION = "ALPHA"
 
+FIRST_YEAR = 2012
 CUR_YEAR = datetime.now().year
-SEMESTERS = {'Fall': (8, 9, 10, 11, 12), 'Spring': (1, 2, 3, 4, 5)}
+SEMESTERS = {'fall': (7, 8, 9, 10, 11, 12), 'spring': (1, 2, 3, 4, 5, 6)}
 
 STATUSES = ("Unclaimed", "Repairing", "Waiting", "Complete")
 

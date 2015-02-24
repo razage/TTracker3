@@ -1,3 +1,6 @@
+from calendar import monthrange
+from datetime import date
+
 from flask import abort, Blueprint, flash, Markup, redirect, render_template, request, session, url_for
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -34,7 +37,6 @@ def viewticket(tid):
         ticket = db.session.query(Tickets).filter(Tickets.tid == tid).one()
     except NoResultFound:
         abort(404)
-    pn = [ticket.cphone[:3], ticket.cphone[3:-3], ticket.cphone[-3:]]
     return render_template("tickets/viewticket.html", title="Ticket #%s" % tid, ticket=ticket, tid=tid)
 
 
@@ -106,3 +108,18 @@ def editticket(tid):
     form.problem.data = ticket.problem
     form.workdone.data = ticket.workdone
     return render_template("tickets/edit.html", form=form, title="Edit Ticket #%s" % tid, page="tickets", ticket=ticket)
+
+
+@mod.route('/<semester>/<int:year>/')
+@login_required
+def semesterview(semester, year):
+    semester = semester.lower()
+    if semester not in app.config["SEMESTERS"]:
+        abort(404)
+    else:
+        tickets = db.session.query(Tickets).filter(
+            Tickets.received >= date(year, app.config["SEMESTERS"][semester][0], 1),
+            Tickets.received <= date(year, app.config["SEMESTERS"][semester][5],
+                                     monthrange(year, app.config["SEMESTERS"][semester][5])[1])).all()
+        return render_template("tickets/semesterview.html", title="Tickets from %s %s" % (semester, year),
+                               tickets=tickets)

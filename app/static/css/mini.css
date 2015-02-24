@@ -39,7 +39,7 @@ body > .container {
     cursor: pointer;
 }
 
-.form-addos, .form-edit, .form-register, .form-signin, .form-submit {
+.form-addos, .form-edit, .form-register, .form-signin, .form-submit, .sv {
     padding: 15px;
     margin: 0 auto;
 }
@@ -56,7 +56,7 @@ body > .container {
     max-width: 800px;
 }
 
-.form-addos .form-addos-heading, .form-edit-heading, .form-register .form-register-heading, .form-signin .form-signin-heading, .form-submit .form-submit-heading {
+.form-addos .form-addos-heading, .form-edit-heading, .form-register .form-register-heading, .form-signin .form-signin-heading, .form-submit .form-submit-heading, .form-edit textarea, .sv {
     margin-bottom: 10px;
 }
 
@@ -86,10 +86,6 @@ body > .container {
     border-top-right-radius: 0;
 }
 
-.form-edit textarea {
-    margin-bottom: 10px;
-}
-
 .table > thead:first-child > tr:first-child > th {
     border-top: 1px solid #B8B8B8;
 }
@@ -103,6 +99,11 @@ body > .container {
     float: right;
 }
 
-.pagebar {
+.pagebar, .sv {
     text-align: center;
+}
+
+.sv > thead > tr > th {
+    text-align: center;
+    font-size: 14pt;
 }
