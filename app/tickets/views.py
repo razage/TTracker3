@@ -40,12 +40,6 @@ def viewticket(tid):
     return render_template("tickets/viewticket.html", title="Ticket #%s" % tid, ticket=ticket, tid=tid)
 
 
-@mod.route('/search/', methods=["GET", "POST"])
-@login_required
-def search():
-    return "This feature is not implemented yet."
-
-
 @mod.route('/submit/', methods=["GET", "POST"])
 @login_required
 def submitticket():

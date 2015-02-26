@@ -28,7 +28,7 @@
                 {% if ticket.status|statusname != "Complete" %}
                     <td>N/a</td>
                 {% else %}
-                    <td>{{ ticket.returned }}</td>
+                    <td>{{ ticket.returned.strftime("%B %d, %Y") }}</td>
                 {% endif %}
                 <td>{{ ticket.status|statusname }}</td>
             </tr>
