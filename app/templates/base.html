@@ -21,6 +21,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tickets <span
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url_for('tickets.searchform') }}">Search Tickets</a></li>
                             <li><a href="{{ url_for('tickets.ticketindex', page=1) }}">Browse Tickets</a></li>
                             <li><a href="{{ url_for('tickets.submitticket') }}">Submit a Ticket</a></li>
                         </ul>
@@ -77,7 +78,7 @@
     {% block content %}
     {% endblock %}
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </body>
 </html>

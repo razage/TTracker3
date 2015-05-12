@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <form class="form-edit" role="form" method="get" action="{{ url_for('tickets.ticketsearch') }}">
+            {{ form.category.label }}
+            {{ form.category(class="form-control") }}
+            {{ form.keyword.label }}
+            {{ form.keyword(class="form-control") }}
+            <br />
+            <button class="btn btn-lg btn-info btn-block" type="submit">Search</button>
+        </form>
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <div class="panel-title">Note</div>
+            </div>
+            <div class="panel-body">
+                If you are searching for all tickets of a certain status, the only acceptable keywords are:
+                <ul>
+                    <li>unclaimed</li>
+                    <li>repairing</li>
+                    <li>waiting</li>
+                    <li>complete</li>
+                </ul>
+                Case doesn't matter, but any other keywords will return an "Invalid status!" error.
+            </div>
+        </div>
+    </div>
+{% endblock %}

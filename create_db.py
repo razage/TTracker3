@@ -8,7 +8,6 @@ db.create_all()
 db.session.commit()
 
 # Predefined users
-db.session.add(Technicians("admin@ttracker3.com", "Test", "User", "password", True, True))
 db.session.add(Technicians("alaurent@ttracker2.com", "Andre", "Laurent", "password", False))
 db.session.add(Technicians("bwright@ttracker2.com", "Brandon", "Wright", "password", False))
 db.session.add(Technicians("ckrob@ttracker2.com", "Chris", "Krob", "password", False))
@@ -18,6 +17,7 @@ db.session.add(Technicians("lglazman@ttracker2.com", "Les", "Glazman", "password
 db.session.add(Technicians("mlindberg@ttracker2.com", "Mike", "Lindberg", "password", False))
 db.session.add(Technicians("plee@ttracker2.com", "Pete", "Lee", "password", False))
 db.session.add(Technicians("rlarson@ttracker2.com", "Rob", "Larson", "password", False))
+db.session.add(Technicians("thinkle@ttracker3.com", "Tom", "Hinkle", "password", False))
 db.session.commit()
 
 

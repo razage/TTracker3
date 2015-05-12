@@ -19,3 +19,8 @@ class TicketSubmitForm(Form):
 
     problem = TextAreaField("Problem", [Optional()])
     workdone = TextAreaField("Work Done", [Optional()])
+
+
+class TicketSearchForm(Form):
+    category = SelectField('Category', choices=[('status', 'Status'), ('technician', 'Technician'), ('os', 'OS'), ('problem', 'Problem'), ('workdone', 'Work Done')])
+    keyword = StringField('Keyword', [DataRequired()])

@@ -6,16 +6,17 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from app import app, db
 from app.users.decorators import login_required
-from .forms import TicketSubmitForm
+from .forms import TicketSearchForm, TicketSubmitForm
 from .models import Os, Tickets
 
 
 mod = Blueprint('tickets', __name__, url_prefix="/tickets")
 
+
 @mod.route('/')
 @login_required
 def redirtindex():
-    return redirect(url_for('ticketindex', page=1))
+    return redirect(url_for('tickets.ticketindex', page=1))
 
 
 @mod.route('/<int:page>/')
@@ -46,10 +47,18 @@ def submitticket():
     form = TicketSubmitForm(request.form)
     form.os.choices = [(o.osname, o.osname) for o in db.session.query(Os).filter(Os.enabled).order_by(Os.osname).all()]
     if form.validate_on_submit():
-        data = [form.received.data, (None if form.returned.data == '' else form.returned.data), (None if form.status.data is 0 else session['technician_name']), form.status.data, form.os.data, (None if form.cname.data == '' else form.cname.data), (None if form.cphone.data == '' else form.cphone.data), (None if form.cemail.data == '' else form.cemail.data), (None if form.problem.data == '' else form.problem.data), (None if form.workdone.data == '' else form.workdone.data)]
+        data = [form.received.data, (None if form.returned.data == '' else form.returned.data),
+                (None if form.status.data is 0 else session['technician_name']), form.status.data, form.os.data,
+                (None if form.cname.data == '' else form.cname.data),
+                (None if form.cphone.data == '' else form.cphone.data),
+                (None if form.cemail.data == '' else form.cemail.data),
+                (None if form.problem.data == '' else form.problem.data),
+                (None if form.workdone.data == '' else form.workdone.data)]
         for i in range(len(data)):
             if data[i] is '':
                 data[i] = None
+        if data[3] == 3 and data[1] is None:
+            data[1] = date.today()
         db.session.add(Tickets(*data))
         db.session.commit()
         flash("Your ticket has been added to the database!", app.config["ALERT_CATEGORIES"]['SUCCESS'])
@@ -104,7 +113,7 @@ def editticket(tid):
     return render_template("tickets/edit.html", form=form, title="Edit Ticket #%s" % tid, page="tickets", ticket=ticket)
 
 
-@mod.route('/<semester>/<int:year>/')
+@mod.route('/<string:semester>/<int:year>/')
 @login_required
 def semesterview(semester, year):
     semester = semester.lower()
@@ -117,3 +126,39 @@ def semesterview(semester, year):
                                      monthrange(year, app.config["SEMESTERS"][semester][5])[1])).all()
         return render_template("tickets/semesterview.html", title="Tickets from %s %s" % (semester, year),
                                tickets=tickets)
+
+
+@mod.route('/searchform/')
+@login_required
+def searchform():
+    form = TicketSearchForm(request.form)
+    return render_template("tickets/search.html", title="Ticket Search Form", form=form)
+
+
+@mod.route('/search/')
+@login_required
+def ticketsearch():
+    cat = request.args.get('category')
+    kw = request.args.get('keyword')
+    if cat is None or kw is None:
+        return redirect(url_for('tickets.ticketindex', page=1))
+    else:
+        if cat == "status":
+            maps = {"unclaimed": 0, "repairing": 1, "waiting": 2, "complete": 3}
+            try:
+                r = db.session.query(Tickets).filter(Tickets.status == maps[kw.lower()]).all()
+            except KeyError:
+                flash("Invalid status!", app.config['ALERT_CATEGORIES']['ERROR'])
+                return redirect(url_for("tickets.searchform"))
+        elif cat == "technician":
+            r = db.session.query(Tickets).filter(Tickets.technician.like("%"+kw+"%")).all()
+        elif cat == "os":
+            r = db.session.query(Tickets).filter(Tickets.os.like("%"+kw+"%")).all()
+        elif cat == "problem":
+            r = db.session.query(Tickets).filter(Tickets.problem.like("%"+kw+"%")).all()
+        elif cat == "workdone":
+            r = db.session.query(Tickets).filter(Tickets.workdone.like("%"+kw+"%")).all()
+        else:
+            flash("Invalid category!", app.config['ALERT_CATEGORIES']['ERROR'])
+            return redirect(url_for("tickets.searchform"))
+    return render_template("tickets/ticketlist.html", title="Filtered Tickets", tickets=r, cpage=1, maxpage=1)
