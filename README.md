@@ -6,3 +6,5 @@ TicketTracker3 (TTracker3 for short) is the third and (hopefully) final revision
     * Flask
     * Flask-SQLAlchemy
     * Flask-WTForms
+
+This project is under the [MIT License](https://opensource.org/licenses/MIT) and provided as-is.
